@@ -17,7 +17,7 @@ export const Users: CollectionConfig = {
       admin: {
         position: 'sidebar',
         components: {
-          Field: '/svgl-field/components/SvglPicker#SvglPicker',
+          Field: '/svgl-field/components#SvglField',
         }
       },
     }
