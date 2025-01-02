@@ -1,6 +1,7 @@
 "use client"
-import React, { createContext } from "react"
+import React, { createContext, useState } from "react"
 import { iSVG } from "."
+import { useField } from '@payloadcms/ui'
 
 
 interface FieldContextProps {
@@ -9,17 +10,29 @@ interface FieldContextProps {
   field: any
   children: React.ReactNode
 }
-const FieldContext = createContext({} as Omit<FieldContextProps, "children">)
+type ValueProps = Omit<FieldContextProps, "children"> & {
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  value: any
+  setValue: React.Dispatch<React.SetStateAction<any>>
+}
+const FieldContext = createContext({} as ValueProps)
 
 export const FieldProvider = (props: FieldContextProps) => {
-  const value = {
+  const [isOpen, setIsOpen] = useState(true)
+  const {value, setValue} = useField({ path: props.path })
+  const contextValue = {
     svgl: props.svgl,
     path: props.path,
     field: props.field,
+    isOpen,
+    setIsOpen,
+    setValue,
+    value
   };
 
   return (
-    <FieldContext value={value}>
+    <FieldContext value={contextValue}>
       {props.children}
     </FieldContext>
   )

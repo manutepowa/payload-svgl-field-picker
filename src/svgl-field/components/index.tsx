@@ -22,11 +22,10 @@ export interface iSVG {
 
 export const SvglField: TextFieldServerComponent = async (props) => {
   const path = (props?.path || props?.field?.name || '') as string
-  console.log(props.data[path])
 
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading box...</div>}>
         <SvglPicker field={props?.clientField} path={path} />
       </Suspense>
     </div>
